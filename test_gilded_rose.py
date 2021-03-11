@@ -52,8 +52,10 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, 50)
+        self.assertEqual(self.item.sell_in, self.sell_in - 1)
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, 50)
+        self.assertEqual(self.item.sell_in, self.sell_in - 2)
 
     def test_legendary_items_quality_should_not_be_updated(self):
         self.item.name = 'Sulfuras, Hand of Ragnaros'
@@ -75,7 +77,7 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality + 2)
 
-    def test_backstage_passes_quality_should_be_incremented_by_two_five_days_before_sell_in_limit(self):
+    def test_backstage_passes_quality_should_be_incremented_by_three_five_days_before_sell_in_limit(self):
         self.item.sell_in = 5
         self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Sepultura concert'
         gilded_rose = GildedRose([self.item])
