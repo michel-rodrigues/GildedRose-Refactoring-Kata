@@ -58,9 +58,8 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, 50)
 
-    @unittest.skip('NEED BUGFIX')
     def test_legendary_items_quality_should_not_be_updated(self):
-        self.item.name = 'Sulfuras'
+        self.item.name = 'Sulfuras, Hand of Ragnaros'
         self.item.sell_in = None
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
