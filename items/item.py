@@ -20,15 +20,6 @@ SPECIAL_CASES = (
 )
 
 
-def is_special_item(item):
-    return any((
-        item.name.startswith(AGED_BRIE_PREFIX),
-        item.name.startswith(BACKSTAGE_PASSES_PREFIX),
-        item.name.startswith(CONJURED_PREFIX),
-        item.name.startswith(SULFURAS_PREFIX),
-    ))
-
-
 def update_special_item(item):
     for prefix, handler in SPECIAL_CASES:
         if item.name.startswith(prefix):
@@ -36,8 +27,16 @@ def update_special_item(item):
 
 
 def update_regular_item(item):
-    _update_regular_item()
+    _update_regular_item(item)
 
+
+def is_special_item(item):
+    return any((
+        item.name.startswith(AGED_BRIE_PREFIX),
+        item.name.startswith(BACKSTAGE_PASSES_PREFIX),
+        item.name.startswith(CONJURED_PREFIX),
+        item.name.startswith(SULFURAS_PREFIX),
+    ))
 
 class Item:
     def __init__(self, name, sell_in, quality):
