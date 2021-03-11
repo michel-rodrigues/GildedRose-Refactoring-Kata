@@ -26,6 +26,8 @@ def _update_regular_item(item):
     if item.quality < 0:
         item.quality = 0
     item.sell_in -= 1
+
+
 def _update_aged_brie(item):
     item.sell_in -= 1
     if item.quality < 50:
