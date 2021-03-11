@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-from gilded_rose import Item, GildedRose
+from gilded_rose import GildedRose
+from items import Item
 
 
 if __name__ == '__main__':

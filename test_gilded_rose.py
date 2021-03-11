@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import BACKSTAGE_PASSES_PREFIX, Item, GildedRose
+from gilded_rose import GildedRose
+from items import BACKSTAGE_PASSES_PREFIX, Item
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -34,6 +34,14 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, 0)
 
+    def test_quality_should_not_be_decremented_less_than_zero_even_after_sell_in_limit(self):
+        self.item.quality = 1
+        self.item.sell_in = 0
+        gilded_rose = GildedRose([self.item])
+        gilded_rose.update_quality()
+        self.assertEqual(self.item.quality, 0)
+
+    # fails on original implementation
     def test_aged_brie_quality_always_is_increased_by_one(self):
         self.item.name = 'Aged Brie'
         self.item.sell_in = 1
@@ -43,8 +51,6 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(self.item.sell_in, 0)
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality + 2)
-        self.assertEqual(self.item.sell_in, -1)
-
 
     def test_quality_should_not_be_incremented_greather_than_fifty(self):
         self.item.name = 'Aged Brie'
@@ -57,12 +63,14 @@ class GildedRoseTest(unittest.TestCase):
         self.assertEqual(self.item.quality, 50)
         self.assertEqual(self.item.sell_in, self.sell_in - 2)
 
+    # fails on original implementation
     def test_legendary_items_quality_should_not_be_updated(self):
         self.item.name = 'Sulfuras, Hand of Ragnaros'
+        self.item.quality = 80
         self.item.sell_in = None
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
-        self.assertEqual(self.item.quality, self.quality)
+        self.assertEqual(self.item.quality, 80)
 
     def test_backstage_passes_quality_should_be_incremented_by_one_before_sell_in_limit(self):
         self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Pink Floyd concert'
@@ -84,12 +92,22 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality + 3)
 
+    # fails on original implementation
     def test_backstage_passes_quality_should_be_zero_after_sell_in_limit(self):
-        self.item.sell_in = 0
-        self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Tea Party concert'
+        self.item.sell_in = 1
+        self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Metallica concert'
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, 0)
+        self.assertEqual(self.item.sell_in, 0)
+
+    def test_backstage_passes_quality_should_not_be_incremented_over_fifty(self):
+        self.item.sell_in = 10
+        self.item.quality = 49
+        self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Foo Fighters concert'
+        gilded_rose = GildedRose([self.item])
+        gilded_rose.update_quality()
+        self.assertEqual(self.item.quality, 50)
 
 
 if __name__ == '__main__':
