@@ -3,6 +3,7 @@ import unittest
 from items import (
     AGED_BRIE_PREFIX,
     BACKSTAGE_PASSES_PREFIX,
+    CONJURED_PREFIX,
     SULFURAS_PREFIX,
     Item,
     is_special_item,
@@ -28,4 +29,8 @@ class VerifyItemTypeTest(unittest.TestCase):
 
     def test_backstage_passes_is_special_item(self):
         self.item.name = f'{BACKSTAGE_PASSES_PREFIX} to a Rammstein concert'
+        self.assertTrue(is_special_item(self.item))
+
+    def test_conjured_is_special_item(self):
+        self.item.name = f'{CONJURED_PREFIX} Mana Cake'
         self.assertTrue(is_special_item(self.item))
