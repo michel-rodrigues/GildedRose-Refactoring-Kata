@@ -19,5 +19,16 @@ def _update_backstage_passes(item):
             item.quality = 50
 
 
+def _update_conjured(item):
+    if item.quality > 0:
+        if item.sell_in > 0:
+            item.quality -= 2
+        else:
+            item.quality -= 4
+    if item.quality < 0:
+        item.quality = 0
+    item.sell_in -= 1
+
+
 def _update_sulfuras(item):
     pass

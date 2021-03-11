@@ -1,23 +1,30 @@
-from .special_items_handlers import _update_aged_brie, _update_backstage_passes, _update_sulfuras
+from .special_items_handlers import (
+    _update_aged_brie,
+    _update_backstage_passes,
+    _update_conjured,
+    _update_sulfuras,
+)
 
 
-BACKSTAGE_PASSES_PREFIX = 'Backstage passes'
-SULFURAS_PREFIX = 'Sulfuras'
 AGED_BRIE_PREFIX = 'Aged Brie'
-
+BACKSTAGE_PASSES_PREFIX = 'Backstage passes'
+CONJURED_PREFIX = 'Conjured'
+SULFURAS_PREFIX = 'Sulfuras'
 
 SPECIAL_CASES = (
     (AGED_BRIE_PREFIX, _update_aged_brie),
-    (SULFURAS_PREFIX, _update_sulfuras),
     (BACKSTAGE_PASSES_PREFIX, _update_backstage_passes),
+    (CONJURED_PREFIX, _update_conjured),
+    (SULFURAS_PREFIX, _update_sulfuras),
 )
 
 
 def is_special_item(item):
     return any((
-        item.name.startswith(SULFURAS_PREFIX),
         item.name.startswith(AGED_BRIE_PREFIX),
         item.name.startswith(BACKSTAGE_PASSES_PREFIX),
+        item.name.startswith(CONJURED_PREFIX),
+        item.name.startswith(SULFURAS_PREFIX),
     ))
 
 
