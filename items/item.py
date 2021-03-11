@@ -1,7 +1,8 @@
-from .special_items_handlers import (
+from .items_handlers import (
     _update_aged_brie,
     _update_backstage_passes,
     _update_conjured,
+    _update_regular_item,
     _update_sulfuras,
 )
 
@@ -35,14 +36,7 @@ def update_special_item(item):
 
 
 def update_regular_item(item):
-    if item.quality > 0:
-        if item.sell_in > 0:
-            item.quality -= 1
-        else:
-            item.quality -= 2
-    if item.quality < 0:
-        item.quality = 0
-    item.sell_in -= 1
+    _update_regular_item()
 
 
 class Item:
