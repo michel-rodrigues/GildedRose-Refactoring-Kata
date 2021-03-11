@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from gilded_rose import Item, GildedRose
+from gilded_rose import BACKSTAGE_PASSES_PREFIX, Item, GildedRose
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -66,33 +66,29 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality)
 
-    @unittest.skip('NEED BUGFIX :: Works just with full name')
     def test_backstage_passes_quality_should_be_incremented_by_one_before_sell_in_limit(self):
-        self.item.name = 'Backstage passes'
+        self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Pink Floyd concert'
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality + 1)
 
-    @unittest.skip('NEED BUGFIX :: Works just with full name')
     def test_backstage_passes_quality_should_be_incremented_by_two_ten_days_before_sell_in_limit(self):
         self.item.sell_in = 10
-        self.item.name = 'Backstage passes'
+        self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Rammstein concert'
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality + 2)
 
-    @unittest.skip('NEED BUGFIX :: Works just with full name')
     def test_backstage_passes_quality_should_be_incremented_by_two_five_days_before_sell_in_limit(self):
         self.item.sell_in = 5
-        self.item.name = 'Backstage passes'
+        self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Sepultura concert'
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality + 3)
 
-    @unittest.skip('NEED BUGFIX :: Works just with full name')
     def test_backstage_passes_quality_should_be_zero_after_sell_in_limit(self):
         self.item.sell_in = 0
-        self.item.name = 'Backstage passes'
+        self.item.name = BACKSTAGE_PASSES_PREFIX + ' to a Tea Party concert'
         gilded_rose = GildedRose([self.item])
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, 0)
