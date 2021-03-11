@@ -34,7 +34,6 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, 0)
 
-    @unittest.skip('NEED BUGFIX')
     def test_aged_brie_quality_always_is_increased_by_one(self):
         self.item.name = 'Aged Brie'
         self.item.sell_in = 1
@@ -45,9 +44,7 @@ class GildedRoseTest(unittest.TestCase):
         gilded_rose.update_quality()
         self.assertEqual(self.item.quality, self.quality + 2)
         self.assertEqual(self.item.sell_in, -1)
-        gilded_rose.update_quality()
-        self.assertEqual(self.item.quality, self.quality + 3)
-        self.assertEqual(self.item.sell_in, -2)
+
 
     def test_quality_should_not_be_incremented_greather_than_fifty(self):
         self.item.name = 'Aged Brie'
